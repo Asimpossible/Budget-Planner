@@ -1,14 +1,14 @@
 import React, { useRef, useState } from 'react'
 import './budgetPlanner.scss'
 import { useAppDispatch, useAppSelector } from '@/redux/store'
-import { calculateRemaining, resetBudget, setBudget } from '@/redux/feature/budgetSlice'
+import { calculateRemaining, setBudget } from '@/redux/feature/budgetSlice'
 
 const Index: React.FC = () => {
     const [Edit, setEdit] = useState('Edit')
     const inputRef = useRef<HTMLInputElement>(null)
-    const spent = useAppSelector(state => state.spent)
-    const budgetRemaining = useAppSelector(state => state.budgetRemaining)
-    const budget = useAppSelector(state => state.budget)
+    const spent = useAppSelector(state => state.content.spent)
+    const budgetRemaining = useAppSelector(state => state.content.budgetRemaining)
+    const budget = useAppSelector(state => state.content.budget)
     const dispatch = useAppDispatch()
     const [budgetValue, setBudgetValue] = useState(budget)
 
@@ -39,27 +39,20 @@ const Index: React.FC = () => {
         setBudgetValue(Number(e.target.value))
     }
 
-    function handleReset() {
-        dispatch(resetBudget());
-    }
-
     return (
         <>
-            <div className="budget__title"><h1>My Budget Planner</h1></div>
-            <div className="wrapper__budget">
-                <div className="budgetCard">
-                    <label htmlFor="budget" className='label'>Budget: $</label>
-                    <input type="text" id='budget' ref={inputRef} value={budgetValue} onChange={handleOnChange} />
-                    <button onClick={handleEditBudget}>{Edit}</button>
+            <div className="wrapper__budget flex justify-between items-center my-8 gap-12">
+                <div className="budgetCard font-bold bg-slate-400 text-cyan-950 w-1/4 h-20 rounded-xl flex justify-around items-center">
+                    <label htmlFor="budget" className='label w-18 text-lg'>Budget ($):</label>
+                    <input type="text" id='budget' ref={inputRef} value={budgetValue} onChange={handleOnChange} className='bg-slate-500 text-white font-thin w-14 rounded-md p-1 focus:outline-none' />
+                    <button onClick={handleEditBudget} className='font-semibold hover:transition-all hover:shadow-2xl py-2 px-3 rounded-lg bg-gray-800 text-gray-400 hover:text-white'>{Edit}</button>
+
                 </div>
-                <div className="remainingCard">
+                <div className="remainingCard text-sky-950 text-lg font-semibold bg-palette-1 w-1/4 h-20 rounded-xl flex justify-around items-center">
                     Remaining: {budgetRemaining}$
                 </div>
-                <div className="spentSoFarCard">
+                <div className="spentSoFarCard text-teal-950 text-lg font-semibold bg-palette-2 w-1/4 h-20 rounded-xl flex justify-around items-center">
                     Spent so far : {spent}$
-                </div>
-                <div className="resetDiv">
-                    <button className='resetBtn' onClick={handleReset}>Reset Planner</button>
                 </div>
             </div>
         </>

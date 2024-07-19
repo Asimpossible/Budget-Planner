@@ -1,6 +1,7 @@
 export interface IExpense {
     name: string,
-    cost: number
+    cost: number,
+    id: number
 }
 
 export interface IContent {
@@ -9,5 +10,6 @@ export interface IContent {
     budgetRemaining: number,
     spent: number,
     expenseTitle: string,
-    expenseCost: number
+    expenseCost: number,
 }
+

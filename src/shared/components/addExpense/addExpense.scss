@@ -1,49 +1,44 @@
 @import "../mixins";
 
 .expense {
-    margin-top: 5rem;
-    margin-bottom: 3rem;
 
-    &__title {
-        margin-bottom: 35px;
-    }
 
     &__inputs {
-        @include displayFlex($jc: left, $ai: left, $gap: 6rem);
+        // @include displayFlex($jc: left, $ai: left, $gap: 6rem);
 
-        form {
-            @include displayFlex($ai: end, $jc: center, $gap: 17px);
+        // form {
+        //     @include displayFlex($ai: end, $jc: center, $gap: 17px);
 
-            button {
-                width: 100%;
-                height: 40px;
-            }
-        }
+        //     button {
+        //         width: 100%;
+        //         height: 40px;
+        //     }
+        // }
 
-        &__nameInp,
-        &__costInp {
-            @include displayFlex($dir: column, $jc: left, $ai: left, $gap: 6px);
-            width: 250px;
+        // &__nameInp,
+        // &__costInp {
+        //     @include displayFlex($dir: column, $jc: left, $ai: left, $gap: 6px);
+        //     width: 250px;
 
-            input {
-                padding: 6px;
-            }
-        }
+        //     input {
+        //         padding: 6px;
+        //     }
+        // }
 
-        .addBtn {
-            box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-            border: none;
-            background-color: cadetblue;
-            font-size: 16px;
-            color: white;
-            font-weight: 600;
-            transition: 0.2;
-            cursor: pointer;
+        // .addBtn {
+        //     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+        //     border: none;
+        //     background-color: cadetblue;
+        //     font-size: 16px;
+        //     color: white;
+        //     font-weight: 600;
+        //     transition: 0.2;
+        //     cursor: pointer;
 
-            &:hover {
-                color: green;
+        //     &:hover {
+        //         color: green;
 
-            }
-        }
+        //     }
+        // }
     }
 }

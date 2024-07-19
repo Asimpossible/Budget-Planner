@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IContent, IExpense } from "./types";
 import { PayloadAction } from "@reduxjs/toolkit/react";
-import { persistReducer } from "redux-persist";
-import storage from 'redux-persist/lib/storage'
 
 const initialState = {
     content: [],
@@ -33,25 +31,21 @@ const BudgetSlice = createSlice({
         calculateRemaining: (state: IContent) => {
             state.budgetRemaining = state.budget as number - state.spent
         },
-        resetBudget: () => initialState
+        resetBudget: () => initialState,
+
+        deleteItem: (state: IContent, action: PayloadAction<number>) => {
+            state.content = state.content.filter(item => item.id != action.payload)
+        },
+        editItem: (state: IContent, action: PayloadAction<IExpense>) => {
+            const index = state.content.findIndex(budget => budget.id === action.payload.id)
+            if (index != -1) {
+                state.content[index] = action.payload
+            }
+        }
+
 
     }
 })
 
-export const { setBudget, addToExpense, calculateSpent, calculateRemaining, resetBudget } = BudgetSlice.actions;
-export const reducer = persistReducer(
-    {
-        key: "Budget",
-        storage,
-        whitelist: [
-            "content",
-            "budget",
-            "budgetRemaining",
-            "spent",
-            "expenseTitle",
-            "expenseCost"
-        ],
-    },
-    BudgetSlice.reducer
-);
-export default reducer;
+export const { setBudget, addToExpense, calculateSpent, calculateRemaining, resetBudget, deleteItem, editItem } = BudgetSlice.actions;
+export default BudgetSlice.reducer;

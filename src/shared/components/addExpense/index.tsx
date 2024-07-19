@@ -33,19 +33,19 @@ const Index: React.FC = () => {
 
     return (
         <>
-            <div className="expense">
-                <div className="expense__title"><h2>Add Expense</h2></div>
+            <div className="expense mt-14 mb-10">
+                <div className="expense__title  text-2xl font-semibold text-palette-5 mb-5"><h2>Add Expense</h2></div>
                 <div className="expense__inputs">
-                    <form onSubmit={handleOnSubmit}>
-                        <div className="expense__inputs__nameInp">
-                            <label htmlFor="name">Name:</label>
-                            <input type="text" id='name' name='name' value={values.name} onChange={handleOnChange} />
+                    <form onSubmit={handleOnSubmit} className='flex justify-start items-end gap-7'>
+                        <div className="expense__inputs__nameInp flex flex-col gap-1">
+                            <label htmlFor="name" className='text-lg font-semibold'>Name:</label>
+                            <input type="text" id='name' name='name' value={values.name} onChange={handleOnChange} className='py-1 px-1.5 focus:outline-none rounded-lg' />
                         </div>
-                        <div className="expense__inputs__costInp">
-                            <label htmlFor="cost">Cost:</label>
-                            <input type="number" name="cost" id="cost" value={values.cost} onChange={handleOnChange} />
+                        <div className="expense__inputs__costInp flex flex-col gap-1">
+                            <label htmlFor="cost" className='text-lg font-semibold'>Cost:</label>
+                            <input type="number" name="cost" id="cost" value={values.cost} onChange={handleOnChange} className='py-1 px-1.5 focus:outline-none rounded-lg' />
                         </div>
-                        <button className='addBtn'>Add</button>
+                        <button className='addBtn rounded-lg py-1 cursor-pointer active:text-red-500 px-4 bg-teal-600 text-lg text-white font-semibold'>Add</button>
                     </form>
                 </div>
             </div>

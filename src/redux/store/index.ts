@@ -1,30 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
-import reducer from "../feature/budgetSlice";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import {
-    persistStore,
-    FLUSH,
-    REHYDRATE,
-    PAUSE,
-    PERSIST,
-    PURGE,
-    REGISTER,
-} from 'redux-persist';
+import budgetSlice from "../feature/budgetSlice";
+
 
 
 
 export const store = configureStore({
-    reducer,
-    devTools: true,
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware({
-            serializableCheck: {
-                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-            },
-        }),
+    reducer: {
+        content: budgetSlice
+    },
+    devTools: true
 });
 
-export const persistor = persistStore(store)
+
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

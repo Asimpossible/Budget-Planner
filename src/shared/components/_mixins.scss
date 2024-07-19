@@ -7,9 +7,9 @@
 }
 
 @mixin cardParams {
-    width: 550px;
+    width: 350px;
     height: 80px;
-    @include displayFlex();
+    @include displayFlex($gap: 0px, $jc: center);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     border-radius: 10px;
     padding: 38px;
