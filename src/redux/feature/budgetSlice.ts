@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IContent, IExpense } from "./types";
 import { PayloadAction } from "@reduxjs/toolkit/react";
+import { v4 as uuid } from 'uuid'
 
 const initialState = {
     content: [],
@@ -8,7 +9,9 @@ const initialState = {
     budgetRemaining: 0,
     spent: 0,
     expenseTitle: '',
-    expenseCost: 0
+    expenseCost: '',
+    searchQuery: '',
+    expenseId: ''
 }
 
 const BudgetSlice = createSlice({
@@ -16,13 +19,12 @@ const BudgetSlice = createSlice({
     initialState,
     reducers: {
         addToExpense: (state: IContent, action: PayloadAction<IExpense>) => {
-
             state.content.push(action.payload)
             state.expenseTitle = action.payload.name
             state.expenseCost = action.payload.cost
+            state.expenseId = action.payload.id = uuid()
         },
         setBudget: (state: IContent, action: PayloadAction<number>) => {
-
             state.budget = action.payload;
         },
         calculateSpent: (state: IContent, action: PayloadAction<number>) => {
@@ -31,21 +33,22 @@ const BudgetSlice = createSlice({
         calculateRemaining: (state: IContent) => {
             state.budgetRemaining = state.budget as number - state.spent
         },
-        resetBudget: () => initialState,
+        deleteItem: (state: IContent, action: PayloadAction<string>) => {
+            const deleteExpense = state.content.find(item => item.id === action.payload)
+            console.log('action payload is: ', action.payload)
 
-        deleteItem: (state: IContent, action: PayloadAction<number>) => {
-            state.content = state.content.filter(item => item.id != action.payload)
-        },
-        editItem: (state: IContent, action: PayloadAction<IExpense>) => {
-            const index = state.content.findIndex(budget => budget.id === action.payload.id)
-            if (index != -1) {
-                state.content[index] = action.payload
+            if (deleteExpense) {
+                state.content = state.content.filter(item => item.id !== deleteExpense.id)
+                state.spent -= Number(deleteExpense.cost)
+                state.budgetRemaining += Number(deleteExpense.cost)
             }
+
+        },
+        setSearchQuery: (state: IContent, action: PayloadAction<string>) => {
+            state.searchQuery = action.payload
         }
-
-
     }
 })
 
-export const { setBudget, addToExpense, calculateSpent, calculateRemaining, resetBudget, deleteItem, editItem } = BudgetSlice.actions;
+export const { setBudget, addToExpense, calculateSpent, calculateRemaining, deleteItem, setSearchQuery } = BudgetSlice.actions;
 export default BudgetSlice.reducer;

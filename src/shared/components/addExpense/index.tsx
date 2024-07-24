@@ -9,26 +9,26 @@ const Index: React.FC = () => {
 
     const [values, setValues] = React.useState<IExpense>({
         name: '',
-        cost: 0
+        cost: '',
+        id: ''
     })
 
     function handleOnSubmit(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) {
         e.preventDefault()
-        if (values.name && values.cost != 0) {
+        if (values.name && Number(values.cost) != 0 && Number(values.cost) > 0) {
             dispatch(addToExpense(values))
-            setValues({ name: '', cost: 0 })
-            dispatch(calculateSpent(values.cost))
+            setValues({ name: '', cost: '', id: '' })
+            dispatch(calculateSpent(Number(values.cost)))
             dispatch(calculateRemaining())
         }
         else {
-            alert("Expense is not entered...")
+            alert("Expense is not entered quite...")
         }
     }
 
     function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
         e.preventDefault()
         setValues({ ...values, [e.target.name]: e.target.value })
-
     }
 
     return (
@@ -54,3 +54,4 @@ const Index: React.FC = () => {
 }
 
 export default Index
+

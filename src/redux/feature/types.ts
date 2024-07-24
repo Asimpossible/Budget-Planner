@@ -1,15 +1,17 @@
+
 export interface IExpense {
     name: string,
-    cost: number,
-    id: number
+    cost: string,
+    id: string
 }
 
 export interface IContent {
     content: IExpense[],
-    budget: number | string,
+    budget: number,
     budgetRemaining: number,
     spent: number,
     expenseTitle: string,
-    expenseCost: number,
+    expenseCost: string,
+    searchQuery: string,
+    expenseId: string
 }
-
